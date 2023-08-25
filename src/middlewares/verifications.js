@@ -39,5 +39,13 @@ const verifyDelete = (req, res, next) => {
 }
 
 
+const verifyUpdate = (req, res, next) => {
 
-module.exports = {verifyData, verifyDelete};
+    let {_id} = req.query
+    
+    next ()
+}
+
+
+
+module.exports = {verifyData, verifyDelete, verifyUpdate};
