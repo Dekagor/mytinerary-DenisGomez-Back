@@ -4,13 +4,15 @@ const City = require("../models/cities.Models")
 
 
 const getCities = async (req, res) => {
-    let cities = await City.find ()
+    const query = {}
+    if (req.query.name) {
+        query.name = { $regex:req.query.name, $options: 'i' }
+    }
+    let cities = await City.find (query)
     try {
-        res.status(200).json (
-            cities
-        )
+        res.status(200).json ({status:200, success:true, response: cities})
     } catch (error) {
-        res.status(500).json({message: error.message})
+        res.status(500).json({message: error})
     }
 }
 

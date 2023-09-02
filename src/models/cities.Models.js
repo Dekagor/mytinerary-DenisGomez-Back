@@ -2,7 +2,7 @@ const { Schema, model } = require ('mongoose');
 
 
 const schemaCity = new Schema ({
-    
+
     name: {
         type: String,
         required: true,
@@ -24,6 +24,16 @@ const schemaCity = new Schema ({
     },
 
     description: {
+        type: String,
+        required: true,
+    },
+
+    price: {
+        type: Number,
+        required: true,
+    },
+
+    date: {
         type: String,
         required: true,
     },

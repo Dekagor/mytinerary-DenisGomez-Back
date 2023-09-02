@@ -2,7 +2,7 @@ require('dotenv').config({path:'./.env'});
 const { connect } = require('mongoose');
 
 
-const URL = `mongodb+srv://Dekagor:${process.env.clave}@cluster0.h6vbp4l.mongodb.net/?retryWrites=true&w=majority`
+const URL = process.env.clave
 
 
     connect (URL)
