@@ -2,7 +2,7 @@
 
 const verifyData = (req, res, next) => {
 
-    let {name, country, location, img, description} = req.body
+    let {name, country, location, img, description, price1, date1, itinerary1, about1, included1, notincluded1, price2, date2, itinerary2, about2, included2, notincluded2} = req.body
 
     if(!name || !country || !location || !img || !description) {
         return res.status(400).json({message: "Invalid data"})

@@ -28,12 +28,62 @@ const schemaCity = new Schema ({
         required: true,
     },
 
-    price: {
-        type: Number,
+    price1: {
+        type: String,
         required: true,
     },
 
-    date: {
+    date1: {
+        type: String,
+        required: true,
+    },
+
+    itinerary1: {
+        type: String,
+        required: true,
+    },
+
+    about1: {
+        type: String,
+        required: true,
+    },
+
+    included1: {
+        type: String,
+        required: true,
+    },
+
+    notincluded1: {
+        type: String,
+        required: true,
+    },
+
+    price2: {
+        type: String,
+        required: true,
+    },
+
+    date2: {
+        type: String,
+        required: true,
+    },
+
+    itinerary2: {
+        type: String,
+        required: true,
+    },
+
+    about2: {
+        type: String,
+        required: true,
+    },
+
+    included2: {
+        type: String,
+        required: true,
+    },
+
+    notincluded2: {
         type: String,
         required: true,
     },
