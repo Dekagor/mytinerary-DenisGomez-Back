@@ -1,5 +1,5 @@
-const res = require("express/lib/response");
 const City = require("../models/cities.Models")
+const Itinerary = require("../models/itinerary.Models")
 
 
 
@@ -33,10 +33,19 @@ const getCity = async (req, res) => {
 const addCities = async (req, res) => {
 
     try {
+        const newCity = { ...req.body }
 
-    let payload = req.body
+        const itinerary = await Itinerary.findOne( { itinerary: req.body.itinerary } )
 
-    let createCity = await City.create(payload)
+        if (itinerary) {
+            newCity.itinerary = itinerary._id
+        }else {
+            const newItinerary = await Itinerary.create( { itinerary: req.body.itinerary } )
+            newCity.itinerary = newItinerary._id
+        }
+
+        const createCity = await City.create( newCity )
+        await Itinerary.findOneAndUpdate( {_id: newCity.itinerary}, { $push : { itinerary : createCity._id } } )
 
 
     res.status(201).json ({
@@ -48,6 +57,36 @@ const addCities = async (req, res) => {
         res.status(500).json({message: error})
     }
 }
+
+
+const addAllCities = async (req, res) => {
+
+    try {
+        for (const item of req.body) {
+            const { itinerary } = item
+            const newCity = { ...item }
+            const aux = await Itinerary.findOne( { itinerary: itinerary } )
+
+        if (aux) {
+            newCity.itinerary = aux._id
+        }else {
+            const newItinerary = await Itinerary.create( { itinerary: itinerary } )
+            newCity.itinerary = newItinerary._id
+        }
+
+        const createCity = await City.create( newCity )
+        await Itinerary.findOneAndUpdate( {itinerary: itinerary}, { $push : { itinerary : createCity._id } } )
+
+    }
+
+    res.status(200).json ({ success: true })
+    } catch (error) {
+        res.status(500).json({message: error})
+    }
+}
+
+
+
 
 const deleteCities = async (req, res) => {
     let {id} = req.query
@@ -73,4 +112,4 @@ const updateCities = async (req, res) => {
     }
 }
 
-module.exports = {getCities, getCity, addCities, deleteCities, updateCities};
+module.exports = {getCities, getCity, addCities, addAllCities, deleteCities, updateCities};
